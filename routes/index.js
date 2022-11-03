@@ -10,8 +10,4 @@ router.get("/nosotros", (req, res) => { // req - lo que enviamos : res - lo que 
   res.render("nosotros");
 });
 
-router.get("/contacto", (req, res) => { // req - lo que enviamos : res - lo que express nos responde
-  res.send("Contacto");
-});
-
 export default router;
