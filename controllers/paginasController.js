@@ -6,27 +6,45 @@ const homePage = (req, res) => {
   });
 };
 
-const aboutUsPage = (req, res) => {  
+const aboutUsPage = (req, res) => {
   res.render("nosotros", {
-    page: "Nosotros"
+    page: "Nosotros",
   });
-} 
+};
 
-const travelPage = async (req, res) => { 
+const travelPage = async (req, res) => {
   // Consultar BD
   const viajes = await Viaje.findAll();
-  console.log(viajes);
   res.render("viajes", {
     page: "Viajes",
-    viajes
+    viajes,
   });
-}
+};
 
-const testimonialsPage =  (req, res) => { 
+const travelDetailpage = async (req, res) => {
+  const { slug } = req.params;
+
+  try {
+    const viaje = await Viaje.findOne({ where: { slug } });
+    res.render("viaje", {
+      page: "Información Viaje",
+      viaje
+    })
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const testimonialsPage = (req, res) => {
   res.render("testimoniales", {
-    page: "Testimoniales"
+    page: "Testimoniales",
   });
-}
+};
 
-
-export { homePage, aboutUsPage, travelPage, testimonialsPage };
+export {
+  homePage,
+  aboutUsPage,
+  travelPage,
+  testimonialsPage,
+  travelDetailpage,
+};
