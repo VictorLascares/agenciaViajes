@@ -10,11 +10,23 @@ block contenido
           form(action="/testimoniales" method="POST") 
             .form-group
               label(for="nombre") Nombre
-              input#nombre(type="text", placeholder="Tu nombre", name="nombre", class="form-control")
+              input#nombre(type="text", placeholder="Tu nombre", name="nombre", class="form-control", value=nombre)
+              if (errors)
+                each error in errors 
+                  if ( error.input == "nombre")
+                    .alert.col.alert-danger.text-center.mt-2=error.message
             .form-group
               label(for="correo") Correo Eléctronico
-              input#correo(type="email", placeholder="ejemplo@correo.com", name="correo", class="form-control")
+              input#correo(type="email", placeholder="ejemplo@correo.com", name="correo", class="form-control", value=correo)
+              if (errors)
+                each error in errors 
+                  if ( error.input == "correo")
+                    .alert.col.alert-danger.text-center.mt-2=error.message
             .form-group
               label(for="mensaje") Mensaje
-              textarea#mensaje(class="form-control", name="mensaje", placeholder="Tu mensaje", rows="3") 
+              textarea#mensaje(class="form-control", name="mensaje", placeholder="Tu mensaje", rows="3")=mensaje 
+              if (errors)
+                each error in errors 
+                  if ( error.input == "mensaje")
+                    .alert.col.alert-danger.text-center.mt-2=error.message
             input.btn.btn-success.btn-block(type="submit", value="Enviar")

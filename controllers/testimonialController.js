@@ -3,20 +3,40 @@ const saveTestimonial = (req, res) => {
   const { nombre, correo, mensaje } = req.body;
 
   const errors = [];
-  if (nombre.trim() === '') {
-    errors.push({ mensaje: "El nombre esta vacio" });
+  if (nombre.trim() === "") {
+    errors.push({
+      input: "nombre",
+      message: "El nombre es un campo obligatorio",
+    });
   }
 
-  if (correo.trim() === '') {
-    errors.push({ mensaje: "El correo esta vacio" });
+  if (correo.trim() === "") {
+    errors.push({
+      input: "correo",
+      message: "El correo es un campo obligatorio",
+    });
   }
 
-  if (mensaje.trim() === '') {
-    errors.push({ mensaje: "El mensaje esta vacio" });
+  if (mensaje.trim() === "") {
+    errors.push({
+      input: "mensaje",
+      message: "El mensaje es un campo obligatorio",
+    });
   }
 
-  console.log(errors);
-}
-
+  if (errors.length > 0) {
+    // Mostrar la vista con errores
+    res.render("testimoniales", {
+      page: "Testimoniales",
+      errors,
+      nombre,
+      correo,
+      mensaje
+    });
+  } else {
+    // Almacenarlo en la base de datos
+    
+  }
+};
 
 export { saveTestimonial };
