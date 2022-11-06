@@ -28,13 +28,20 @@ const saveTestimonial = async (req, res) => {
 
   if (errors.length > 0) {
     // Mostrar la vista con errores
-    res.render("testimoniales", {
-      page: "Testimoniales",
-      errors,
-      nombre,
-      correo,
-      mensaje,
-    });
+
+    try {
+      const testimonials = await Testimonial.findAll();
+      res.render("testimoniales", {
+        page: "Testimoniales",
+        errors,
+        nombre,
+        correo,
+        mensaje,
+        testimonials,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     // Almacenarlo en la base de datos
     try {
