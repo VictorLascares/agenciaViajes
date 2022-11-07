@@ -3,12 +3,18 @@ import { Viaje } from "../models/Viaje.js";
 
 const homePage = async (req, res) => {
   // Consultar 3 viajes del modelo de Viaje
+  const promiseDB = [];
+
+  promiseDB.push(Viaje.findAll({ limit: 3 }));
+  promiseDB.push(Testimonial.findAll({ limit: 3 }));
   try {
-    const viajes = await Viaje.findAll({ limit: 3 });
+    const resultado = await Promise.all( promiseDB ) ;
+    console.log(resultado[0]);
     res.render("inicio", {
       page: "Inicio",
       clase: "home",
-      viajes,
+      travels: resultado[0],
+      testimonials: resultado[1],
     });
   } catch (error) {
     console.log(error);
@@ -23,10 +29,10 @@ const aboutUsPage = (req, res) => {
 
 const travelPage = async (req, res) => {
   // Consultar BD
-  const viajes = await Viaje.findAll();
+  const travels = await Viaje.findAll();
   res.render("viajes", {
     page: "Viajes",
-    viajes,
+    travels,
   });
 };
 
